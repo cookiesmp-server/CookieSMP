@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CookieSMP | Minecraft Survival</title>
+<meta name="description" content="CookieSMP resmi Minecraft sunucusu. Maceraya katıl!">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+background:#090909;
+color:white;
+}
+header{
+padding:25px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #222;
+}
+.logo{font-size:27px;font-weight:900;color:#ff9d32}
+nav a{color:#ccc;text-decoration:none;margin-left:25px}
+.hero{
+min-height:75vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px 20px;
+background:radial-gradient(ellipse at center,#35200e 0%,#090909 65%);
+}
+.hero h1{font-size:clamp(48px,9vw,90px);font-weight:900}
+.hero h1 span{color:#ff9d32}
+.hero p{color:#aaa;margin:20px 0;font-size:18px}
+.ip{
+background:#171717;
+border:1px solid #444;
+padding:17px 25px;
+border-radius:10px;
+margin:15px;
+font-size:17px;
+}
+button{
+background:#ff9d32;
+color:#111;
+border:0;
+padding:15px 25px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+margin:8px;
+}
+button:hover{background:#ffb45e}
+section{padding:65px 8%;text-align:center}
+section h2{font-size:32px;margin-bottom:30px}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+.card{
+background:#151515;
+border:1px solid #292929;
+border-radius:12px;
+padding:30px;
+}
+.card h3{color:#ff9d32;margin-bottom:12px}
+footer{
+padding:30px;
+text-align:center;
+color:#777;
+border-top:1px solid #222;
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🍪 CookieSMP</div>
+<nav>
+<a href="#home">Ana Sayfa</a>
+<a href="#features">Özellikler</a>
+<a href="#join">Katıl</a>
+</nav>
+</header>
+
+<main>
+<div class="hero" id="home">
+<h1>COOKIE<span>SMP</span></h1>
+<p>Yeni maceranın başlangıç noktası.</p>
+<div class="ip">cookiesmp.mangoohost.live</div>
+<button onclick="copyIP()">IP ADRESİNİ KOPYALA</button>
+</div>
+
+<section id="features">
+<h2>Neden CookieSMP?</h2>
+<div class="cards">
+<div class="card">
+<h3>⚔️ Survival PvP</h3>
+<p>Özgürce savaş ve hayatta kal.</p>
+</div>
+<div class="card">
+<h3>🛒 Oyuncu Marketi</h3>
+<p>Kendi ekonomini oluştur.</p>
+</div>
+<div class="card">
+<h3>🏡 Claim Sistemi</h3>
+<p>Yapılarını koruma altına al.</p>
+</div>
+</div>
+</section>
+
+<section id="join">
+<h2>Maceraya Katıl!</h2>
+<p>Sunucu adresimiz yukarıda seni bekliyor.</p>
+<button onclick="copyIP()">SUNUCU IP'SİNİ KOPYALA</button>
+</section>
+</main>
+
+<footer>
+© 2026 CookieSMP - Tüm hakları saklıdır.
+</footer>
+
+<script>
+function copyIP(){
+navigator.clipboard.writeText("cookiesmp.mangoohost.live")
+.then(()=>alert("CookieSMP IP adresi kopyalandı!"))
+.catch(()=>alert("IP: cookiesmp.mangoohost.live"));
+}
+</script>
+</body>
+</html>
