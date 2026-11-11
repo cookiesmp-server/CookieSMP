@@ -4,233 +4,313 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CookieSMP | Resmi CookieSMP Web Sitesi</title>
-<meta name="description" content="CookieSMP resmi Minecraft SMP sunucusu. Ekonomi, mağaza, spawner ve daha fazlası.">
+<meta name="description" content="CookieSMP resmi Minecraft SMP sunucusu: rank mağazası, kurallar, destek ekibi ve utanç köşesi.">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #1a0f0a;
-    --panel: #2a1810;
-    --panel-2: #3a2216;
-    --line: #5a3822;
-    --gold: #ffb52e;
-    --gold-d: #c47f0a;
-    --cream: #fff1d6;
-    --pink: #ff6fa5;
-    --green: #5ee27a;
-  }
-  * { box-sizing: border-box; margin: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: "Nunito", system-ui, sans-serif;
-    background: var(--bg);
-    background-image:
-      radial-gradient(circle at 20% 0%, #3a2216 0, transparent 45%),
-      radial-gradient(circle at 90% 30%, #2d1a2a 0, transparent 40%);
-    color: var(--cream);
-    line-height: 1.6;
-  }
-  .px { font-family: "Press Start 2P", monospace; line-height: 1.5; }
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-
-  /* Navigation */
-  nav { border-bottom: 4px solid var(--line); background: #140b07; position: sticky; top: 0; z-index: 10; }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
-  .logo { font-size: .85rem; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .logo svg { width: 28px; height: 28px; }
-  nav ul { list-style: none; display: flex; gap: 20px; padding: 0; }
-  nav a.l { color: var(--cream); text-decoration: none; font-weight: 800; opacity: .8; }
-  nav a.l:hover { opacity: 1; color: var(--gold); }
-  @media (max-width: 560px) { nav ul { display: none; } }
-
-  /* Hero */
-  .hero { padding: 56px 0 44px; text-align: center; }
-  .hero svg { width: 150px; height: 150px; image-rendering: pixelated; }
-  h1 {
-    font-family: "Press Start 2P", monospace;
-    font-size: clamp(1.8rem, 7.5vw, 3.6rem);
-    color: var(--gold);
-    text-shadow: 4px 4px 0 var(--gold-d), 8px 8px 0 #000;
-    margin: 18px 0 10px;
-    line-height: 1.2;
-  }
-  .sub { font-size: 1.2rem; max-width: 560px; margin: 0 auto 26px; opacity: .9; }
-
-  .ipcard {
-    max-width: 440px; margin: 0 auto;
-    background: var(--panel); border: 4px solid var(--gold);
-    box-shadow: 8px 8px 0 #000; padding: 18px;
-  }
-  .ipcard .lbl { font-size: .9rem; opacity: .7; }
-  .ipcard code { display: block; font-family: "Press Start 2P", monospace; font-size: clamp(.7rem, 3.4vw, 1rem); color: var(--gold); margin: 10px 0 14px; word-break: break-all; }
-  .btn {
-    font-family: "Press Start 2P", monospace; font-size: .75rem;
-    background: var(--gold); color: #2a1500; border: 0; padding: 14px 18px; cursor: pointer;
-    box-shadow: 0 5px 0 var(--gold-d); transition: transform .08s, box-shadow .08s;
-  }
-  .btn:hover { background: #ffc552; }
-  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--gold-d); }
-  .btn:focus-visible { outline: 3px solid var(--cream); outline-offset: 3px; }
-
-  .status { margin-top: 16px; display: inline-flex; align-items: center; gap: 10px; font-weight: 800; background: #00000055; padding: 6px 14px; border: 2px solid var(--line); }
-  .dot { width: 12px; height: 12px; background: #888; }
-  .dot.on { background: var(--green); box-shadow: 0 0 10px var(--green); }
-  .dot.off { background: #e0504a; }
-
-  /* Sections */
-  section { padding: 54px 0; border-top: 4px solid var(--line); }
-  h2 { font-family: "Press Start 2P", monospace; font-size: clamp(1rem, 4vw, 1.5rem); color: var(--gold); margin-bottom: 26px; text-shadow: 3px 3px 0 #000; }
-  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-  .card { background: var(--panel); border: 4px solid var(--line); box-shadow: 6px 6px 0 #000; padding: 20px; transition: transform .12s, border-color .12s; }
-  .card:hover { transform: translate(-3px, -3px); border-color: var(--gold); }
-  .card .ic { font-size: 2rem; display: block; margin-bottom: 8px; }
-  .card h3 { font-family: "Press Start 2P", monospace; font-size: .8rem; color: var(--pink); margin-bottom: 10px; line-height: 1.5; }
-  .card p { font-size: .98rem; opacity: .9; }
-
-  /* Steps */
-  .steps { list-style: none; padding: 0; counter-reset: s; display: grid; gap: 14px; max-width: 640px; }
-  .steps li { counter-increment: s; background: var(--panel); border: 4px solid var(--line); padding: 16px 16px 16px 66px; position: relative; box-shadow: 5px 5px 0 #000; }
-  .steps li::before {
-    content: counter(s); position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-    width: 36px; height: 36px; display: grid; place-items: center;
-    background: var(--gold); color: #2a1500; font-family: "Press Start 2P", monospace; font-size: .8rem;
-  }
-  .steps b { color: var(--gold); }
-
-  /* Rules */
-  .rules { list-style: none; padding: 0; display: grid; gap: 10px; max-width: 700px; }
-  .rules li { background: var(--panel); border-left: 8px solid var(--pink); padding: 12px 16px; }
-
-  footer { border-top: 4px solid var(--line); background: #140b07; text-align: center; padding: 30px 20px 40px; font-size: .9rem; opacity: .75; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .hero svg { animation: bob 2.4s steps(6) infinite; }
-    @keyframes bob { 50% { transform: translateY(-10px); } }
-  }
+:root{--bg:#1a0f0a;--p:#2a1810;--p2:#3a2216;--line:#5a3822;--gold:#ffb52e;--gd:#c47f0a;--cream:#fff1d6;--pink:#ff6fa5;--green:#5ee27a;--red:#ff5a52;--blue:#7289da}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:"Nunito",system-ui,sans-serif;background:var(--bg);background-image:radial-gradient(circle at 15% 0,#3a2216 0,transparent 45%),radial-gradient(circle at 90% 25%,#2d1a2a 0,transparent 40%);color:var(--cream);line-height:1.6}
+.px,h1,h2,h3.px,.btn{font-family:"Press Start 2P",monospace;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+[hidden]{display:none!important}
+nav{background:#140b07;border-bottom:4px solid var(--line);position:sticky;top:0;z-index:10}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{color:var(--gold);text-decoration:none;font-size:.8rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo svg{width:26px;height:26px}
+nav ul{list-style:none;padding:0;display:flex;gap:16px;overflow-x:auto;align-items:center}
+nav a.l{color:var(--cream);text-decoration:none;font-weight:800;opacity:.8;white-space:nowrap;font-size:.95rem}
+nav a.l:hover{opacity:1;color:var(--gold)}
+.hero{padding:50px 0 40px;text-align:center}
+.hero>.wrap>svg{width:140px;height:140px}
+h1{font-size:clamp(1.8rem,7.5vw,3.4rem);color:var(--gold);text-shadow:4px 4px 0 var(--gd),8px 8px 0 #000;margin:16px 0 10px;line-height:1.2}
+.sub{font-size:1.15rem;max-width:560px;margin:0 auto 24px;opacity:.9}
+.ipcard{max-width:440px;margin:0 auto;background:var(--p);border:4px solid var(--gold);box-shadow:8px 8px 0 #000;padding:18px}
+.ipcard small{opacity:.7}
+.ipcard code{display:block;font-family:"Press Start 2P",monospace;font-size:clamp(.65rem,3.3vw,.95rem);color:var(--gold);margin:10px 0 14px;word-break:break-all}
+.btn{font-size:.7rem;background:var(--gold);color:#2a1500;border:0;padding:13px 16px;cursor:pointer;box-shadow:0 5px 0 var(--gd);text-decoration:none;display:inline-block}
+.btn:hover{background:#ffc552}.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--gd)}
+.btn.dc{background:var(--blue);color:#fff;box-shadow:0 5px 0 #4a5a9e}
+.btn.dc:hover{background:#8a9ce6}
+.btn:focus-visible,summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
+.herobtns{margin-top:18px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.status{margin-top:16px;display:inline-flex;align-items:center;gap:10px;font-weight:800;background:#0006;padding:6px 14px;border:2px solid var(--line)}
+.dot{width:12px;height:12px;background:#888}.dot.on{background:var(--green);box-shadow:0 0 10px var(--green)}.dot.off{background:var(--red)}
+section{padding:50px 0;border-top:4px solid var(--line)}
+h2{font-size:clamp(.95rem,4vw,1.4rem);color:var(--gold);margin-bottom:8px;text-shadow:3px 3px 0 #000}
+.lead{opacity:.8;margin-bottom:24px;max-width:640px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--p);border:4px solid var(--line);box-shadow:6px 6px 0 #000;padding:18px;transition:transform .12s,border-color .12s}
+.card:hover{transform:translate(-3px,-3px);border-color:var(--gold)}
+.card h3{font-size:.75rem;color:var(--pink);margin:6px 0 8px}
+.card p{font-size:.95rem;opacity:.9}
+.ic{font-size:1.8rem}
+.steps{list-style:none;padding:0;counter-reset:s;display:grid;gap:12px;max-width:640px}
+.steps li{counter-increment:s;background:var(--p);border:4px solid var(--line);padding:14px 14px 14px 62px;position:relative;box-shadow:5px 5px 0 #000}
+.steps li:before{content:counter(s);position:absolute;left:12px;top:50%;transform:translateY(-50%);width:34px;height:34px;display:grid;place-items:center;background:var(--gold);color:#2a1500;font-family:"Press Start 2P",monospace;font-size:.75rem}
+.steps b{color:var(--gold)}
+/* Ranks */
+.rank{border-top-width:10px;display:flex;flex-direction:column}
+.rank h3{font-size:.9rem;margin:0 0 4px}
+.price{font-family:"Press Start 2P",monospace;font-size:.85rem;color:var(--gold);margin:6px 0 12px}
+.rank ul{list-style:none;padding:0;margin-bottom:14px;flex:1}
+.rank li{padding:5px 0 5px 22px;position:relative;font-size:.95rem}
+.rank li:before{content:"✔";position:absolute;left:0;color:var(--green)}
+.soon{font-size:.85rem;opacity:.7}
+/* Vote */
+.votes{display:flex;flex-wrap:wrap;gap:14px}
+/* Team */
+.member{text-align:center}
+.member img{width:84px;height:84px;image-rendering:pixelated;border:4px solid var(--line);background:#000;margin-bottom:10px}
+.role{display:inline-block;font-size:.8rem;font-weight:800;padding:2px 10px;margin:6px 0;color:#1a0f0a}
+.r-owner{background:var(--red)}.r-admin{background:var(--gold)}.r-mod{background:var(--green)}.r-help{background:#6ec6ff}
+/* Rules */
+.cat{margin-top:28px}
+.cat h3{font-size:.8rem;color:var(--pink);margin-bottom:12px}
+details{background:var(--p);border:4px solid var(--line);margin-bottom:10px}
+details[open]{border-color:var(--gold)}
+summary{cursor:pointer;padding:13px 16px;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--gold);font-weight:800}
+details[open] summary:after{content:"–"}
+details .d{padding:0 16px 14px;opacity:.9}
+details .pen{display:inline-block;margin-top:8px;font-size:.85rem;font-weight:800;color:var(--gold)}
+.tw{overflow-x:auto;margin-top:12px}
+table{width:100%;border-collapse:collapse;background:var(--p);min-width:520px}
+th,td{border:3px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
+th{background:var(--p2);color:var(--gold);font-size:.9rem}
+/* Shame */
+.shame{border-color:var(--red)}
+#q{width:100%;max-width:340px;padding:11px 14px;background:var(--p);border:4px solid var(--line);color:var(--cream);font:inherit;margin-bottom:16px}
+.who{display:flex;align-items:center;gap:10px;font-weight:800}
+.who img{width:36px;height:36px;image-rendering:pixelated;border:2px solid #000}
+.tag{background:var(--red);color:#1a0f0a;font-weight:800;font-size:.8rem;padding:2px 8px}
+.empty{padding:16px;opacity:.7}
+footer{border-top:4px solid var(--line);background:#140b07;text-align:center;padding:28px 18px 38px;font-size:.9rem;opacity:.85}
+footer .btn{margin-bottom:18px}
+@media(prefers-reduced-motion:no-preference){.hero>.wrap>svg{animation:bob 2.4s steps(6) infinite}@keyframes bob{50%{transform:translateY(-10px)}}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ck" viewBox="0 0 16 16"><g fill="#c47f0a"><rect x="5" y="1" width="6" height="1"/><rect x="3" y="2" width="10" height="1"/><rect x="2" y="3" width="12" height="10"/><rect x="3" y="13" width="10" height="1"/><rect x="5" y="14" width="6" height="1"/></g><g fill="#f3c26b"><rect x="5" y="2" width="6" height="1"/><rect x="3" y="3" width="10" height="1"/><rect x="2" y="4" width="11" height="8"/><rect x="3" y="12" width="9" height="1"/><rect x="5" y="13" width="6" height="1"/></g><g fill="#3a1d0e"><rect x="5" y="4" width="2" height="2"/><rect x="10" y="5" width="2" height="2"/><rect x="4" y="8" width="2" height="2"/><rect x="8" y="9" width="2" height="2"/><rect x="11" y="10" width="1" height="2"/></g></symbol></svg>
 
-<nav>
-  <div class="wrap">
-    <a class="logo px" href="#top">
-      <svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><use href="#cookie"/></svg>
-      CookieSMP
-    </a>
-    <ul>
-      <li><a class="l" href="#ozellikler">Özellikler</a></li>
-      <li><a class="l" href="#katil">Nasıl katılırım?</a></li>
-      <li><a class="l" href="#kurallar">Kurallar</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- Pixel cookie shared by logo and hero -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="cookie" viewBox="0 0 16 16">
-    <g fill="#c47f0a">
-      <rect x="5" y="1" width="6" height="1"/><rect x="3" y="2" width="10" height="1"/>
-      <rect x="2" y="3" width="12" height="10"/><rect x="3" y="13" width="10" height="1"/><rect x="5" y="14" width="6" height="1"/>
-    </g>
-    <g fill="#f3c26b">
-      <rect x="5" y="2" width="6" height="1"/><rect x="3" y="3" width="10" height="1"/>
-      <rect x="2" y="4" width="11" height="8"/><rect x="3" y="12" width="9" height="1"/><rect x="5" y="13" width="6" height="1"/>
-    </g>
-    <g fill="#3a1d0e">
-      <rect x="5" y="4" width="2" height="2"/><rect x="10" y="5" width="2" height="2"/>
-      <rect x="4" y="8" width="2" height="2"/><rect x="8" y="9" width="2" height="2"/>
-      <rect x="11" y="10" width="1" height="2"/><rect x="8" y="5" width="1" height="1"/>
-    </g>
-  </symbol>
-</svg>
+<nav><div class="wrap">
+<a class="logo px" href="#top"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><use href="#ck"/></svg>CookieSMP</a>
+<ul>
+<li><a class="l" href="#katil">Katıl</a></li>
+<li><a class="l" href="#magaza">Mağaza</a></li>
+<li id="nvote" hidden><a class="l" href="#oy">Oy Ver</a></li>
+<li><a class="l" href="#kurallar">Kurallar</a></li>
+<li><a class="l" href="#cezalar">Cezalar</a></li>
+<li><a class="l" href="#ekip">Ekip</a></li>
+<li><a class="l" href="#utanc">Utanç Köşesi</a></li>
+</ul>
+</div></nav>
 
 <main id="top">
-  <header class="hero">
-    <div class="wrap">
-      <svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><use href="#cookie"/></svg>
-      <h1>CookieSMP</h1>
-      <p class="sub">Ekonomi, mağaza ve rekabetle dolu Minecraft SMP. Sıfırdan başla, zirveye çık.</p>
+<header class="hero"><div class="wrap">
+<svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><use href="#ck"/></svg>
+<h1>CookieSMP</h1>
+<p class="sub">Ekonomi, mağaza ve rekabetle dolu Minecraft SMP. Sıfırdan başla, zirveye çık.</p>
+<div class="ipcard"><small>Sunucu IP</small><code id="ip">cookiesmp.mangoohost.live</code><button class="btn" id="copy">IP'Yİ KOPYALA</button></div>
+<div class="herobtns"><a class="btn dc" id="dc1" href="#" target="_blank" rel="noopener" hidden>DISCORD'A KATIL</a></div>
+<div class="status"><span class="dot" id="dot"></span><span id="stxt">Durum kontrol ediliyor...</span></div>
+</div></header>
 
-      <div class="ipcard">
-        <div class="lbl">Sunucu IP</div>
-        <code id="ip">cookiesmp.mangoohost.live</code>
-        <button class="btn" id="copy">IP'Yİ KOPYALA</button>
-      </div>
+<section><div class="wrap">
+<h2>Özellikler</h2>
+<div class="grid">
+<div class="card"><span class="ic">💰</span><h3 class="px">Ekonomi</h3><p>Eşya sat, para kazan, oyuncularla ticaret yap.</p></div>
+<div class="card"><span class="ic">🛒</span><h3 class="px">Mağaza</h3><p>Kazandığın parayla blok ve özel eşyalar al.</p></div>
+<div class="card"><span class="ic">🏆</span><h3 class="px">Sıralamalar</h3><p>En zengin ve en güçlü oyuncular yarışır.</p></div>
+<div class="card"><span class="ic">🎁</span><h3 class="px">Ödüller</h3><p>Günlük ödüller ve etkinlik hediyeleri.</p></div>
+</div></div></section>
 
-      <div class="status"><span class="dot" id="dot"></span><span id="stxt">Durum kontrol ediliyor...</span></div>
-    </div>
-  </header>
+<section id="katil"><div class="wrap">
+<h2>Nasıl katılırım?</h2><p class="lead">Java Edition ile 1 dakikada gir.</p>
+<ol class="steps">
+<li>Minecraft Java Edition'ı aç, <b>Multiplayer</b>'a gir.</li>
+<li><b>Add Server</b>'a tıkla.</li>
+<li>Adrese <b>cookiesmp.mangoohost.live</b> yaz.</li>
+<li><b>Done</b>'a bas ve gir. Afiyet olsun!</li>
+</ol></div></section>
 
-  <section id="ozellikler">
-    <div class="wrap">
-      <h2>Özellikler</h2>
-      <div class="grid">
-        <div class="card"><span class="ic">💰</span><h3>Ekonomi</h3><p>Eşya sat, para kazan, oyuncular arasında ticaret yap.</p></div>
-        <div class="card"><span class="ic">🛒</span><h3>Mağaza</h3><p>Kazandığın parayla blok, alet ve özel eşyalar satın al.</p></div>
-        <div class="card"><span class="ic">🏆</span><h3>Sıralamalar</h3><p>En zengin ve en çok öldüren oyuncular listede yarışır.</p></div>
-        <div class="card"><span class="ic">🎁</span><h3>Ödüller</h3><p>Günlük ödüller ve etkinlik hediyeleriyle sürekli kazan.</p></div>
-        <div class="card"><span class="ic">🛡️</span><h3>Adil oyun</h3><p>Hile koruması ve aktif yetkili ekibi.</p></div>
-        <div class="card"><span class="ic">🍪</span><h3>Kurabiye teması</h3><p>Sunucuya özel eşyalar ve etkinlikler.</p></div>
-      </div>
-    </div>
-  </section>
+<section id="magaza"><div class="wrap">
+<h2>Rank mağazası</h2>
+<p class="lead">Rankların sunucuya destek olmanın yanında sana ekstra özellikler verir. Sunucu kurallarını ve adil oyunu bozacak avantaj sağlamaz.</p>
+<div class="grid" id="ranks"></div>
+<p class="soon" id="soon" style="margin-top:16px" hidden>Satın alma sayfası çok yakında. Şimdilik oyun içinde yetkililere ulaşabilirsin.</p>
+</div></section>
 
-  <section id="katil">
-    <div class="wrap">
-      <h2>Nasıl katılırım?</h2>
-      <ol class="steps">
-        <li>Minecraft Java Edition'ı aç ve <b>Multiplayer</b> menüsüne gir.</li>
-        <li><b>Add Server</b>'a tıkla.</li>
-        <li>Sunucu adresine <b>cookiesmp.mangoohost.live</b> yaz.</li>
-        <li><b>Done</b>'a bas ve sunucuya gir. Afiyet olsun!</li>
-      </ol>
-    </div>
-  </section>
+<section id="oy" hidden><div class="wrap">
+<h2>Oy ver, ödül kazan</h2>
+<p class="lead">Her gün oy vererek sunucuyu büyütmemize yardım et ve ödülünü al.</p>
+<div class="votes" id="votes"></div>
+</div></section>
 
-  <section id="kurallar">
-    <div class="wrap">
-      <h2>Kurallar</h2>
-      <ul class="rules">
-        <li>Hile ve hack istemcileri yasaktır.</li>
-        <li>Diğer oyunculara saygılı ol; küfür, hakaret ve spam yapma.</li>
-        <li>İzinsiz grief ve hırsızlık yapma.</li>
-        <li>Hata (bug) bulursan kullanma, yetkililere bildir.</li>
-        <li>Yetkililerin kararlarına uy.</li>
-      </ul>
-    </div>
-  </section>
+<section id="kurallar"><div class="wrap">
+<h2>Kurallar</h2>
+<p class="lead">Sunucuya girmekle tüm kuralları kabul etmiş sayılırsın. Bilmemek cezadan kurtarmaz. Bir kurala tıklayıp ayrıntısını oku.</p>
+<div id="rules"></div>
+</div></section>
+
+<section id="cezalar"><div class="wrap">
+<h2>Ceza sistemi</h2>
+<p class="lead">Cezalar ihlalin ağırlığına ve tekrarına göre verilir. Yetkililer gerekirse daha ağır ya da hafif karar verebilir.</p>
+<div class="tw"><table><thead><tr><th>İhlal</th><th>1. kez</th><th>2. kez</th><th>3. kez</th></tr></thead><tbody id="pen"></tbody></table></div>
+</div></section>
+
+<section id="ekip"><div class="wrap">
+<h2>Destek ekibi</h2>
+<p class="lead">Sorun yaşarsan oyunda bu kişilere ulaşabilirsin.</p>
+<div class="grid" id="team"></div>
+</div></section>
+
+<section id="utanc"><div class="wrap">
+<h2 style="color:var(--red)">☠ Utanç köşesi</h2>
+<p class="lead">Kuralları çiğneyip ceza alan oyuncular burada. Sen buraya girme!</p>
+<input id="q" type="search" placeholder="Oyuncu ara..." aria-label="Oyuncu ara">
+<div class="tw"><table class="shame"><thead><tr><th>Oyuncu</th><th>Sebep</th><th>Ceza</th><th>Tarih</th></tr></thead><tbody id="shame"></tbody></table></div>
+<div class="empty" id="none" hidden>Kimse bulunamadı. Aferin size!</div>
+</div></section>
 </main>
 
-<footer>© 2026 CookieSMP. Mojang Studios veya Microsoft ile bağlantılı değildir.</footer>
+<footer>
+<a class="btn dc" id="dc2" href="#" target="_blank" rel="noopener" hidden>DISCORD'A KATIL</a>
+<div>© 2026 CookieSMP. Mojang Studios veya Microsoft ile bağlantılı değildir.</div>
+</footer>
 
 <script>
-  var IP = "cookiesmp.mangoohost.live";
+/* =================== AYARLAR: burayı doldur =================== */
+var IP="cookiesmp.mangoohost.live";
 
-  // Copy IP
-  var btn = document.getElementById("copy");
-  btn.addEventListener("click", function () {
-    function done() {
-      btn.textContent = "KOPYALANDI!";
-      setTimeout(function () { btn.textContent = "IP'Yİ KOPYALA"; }, 1800);
-    }
-    if (navigator.clipboard) { navigator.clipboard.writeText(IP).then(done); } else { done(); }
-  });
+// Discord davet linkin olunca tırnak içine yaz. Örnek: "https://discord.gg/abcdef"
+var DISCORD="";
 
-  // Live server status
-  var dot = document.getElementById("dot");
-  var txt = document.getElementById("stxt");
-  fetch("https://api.mcsrvstat.us/3/" + IP)
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      if (d.online) {
-        dot.className = "dot on";
-        var p = d.players ? d.players.online + " / " + d.players.max : "";
-        txt.textContent = "Çevrimiçi" + (p ? " · " + p + " oyuncu" : "");
-      } else {
-        dot.className = "dot off";
-        txt.textContent = "Sunucu şu an kapalı";
-      }
-    })
-    .catch(function () { dot.className = "dot"; txt.textContent = "Durum alınamadı"; });
+// Rank satın alma sayfan (Tebex vb.) olunca yaz. Boşsa "çok yakında" yazar.
+var STORE="";
+
+// Oy verme siteleri. Link olunca ekle. Örnek: {n:"Minecraft-MP",u:"https://minecraft-mp.com/server/123456/vote/"}
+var VOTES=[];
+
+// Rankların ÖRNEKTİR. Kendi sunucundakilerle değiştir. rk = renk
+var RANKS=[
+ {n:"Cookie",rk:"#c47f0a",pr:"₺50",perks:["Renkli sohbet ismi","2 ev (home)","Günlük özel kit"]},
+ {n:"Choco",rk:"#ff6fa5",pr:"₺100",perks:["Cookie'nin tüm özellikleri","5 ev (home)","Özel tag","Öncelikli girişi"]},
+ {n:"Golden",rk:"#ffb52e",pr:"₺200",perks:["Choco'nun tüm özellikleri","10 ev (home)","Özel parçacık efekti","Haftalık ödül kutusu"]}
+];
+
+// rol: owner, admin, mod, help
+var TEAM=[
+ {n:"Notch",r:"owner",t:"Kurucu",d:"Sunucunun sahibi."},
+ {n:"Dream",r:"admin",t:"Admin",d:"Sunucu yönetimi ve etkinlikler."},
+ {n:"Technoblade",r:"mod",t:"Moderatör",d:"Oyun içi denetim ve şikayetler."},
+ {n:"Steve",r:"help",t:"Yardımcı",d:"Yeni oyunculara destek."}
+];
+
+var RULES=[
+ {c:"Genel kurallar",i:[
+  {t:"Saygılı ol",d:"Diğer oyunculara ve yetkililere saygılı davran. Küfür, hakaret, aşağılama, ırkçılık, ayrımcılık ve tehdit yasaktır.",p:"Uyarı → Susturma → Ban"},
+  {t:"Hesap kuralları",d:"Bir kişi tek hesapla oynar. Başkasının hesabını kullanmak ve hesap satmak yasaktır. Yasaklı biri başka hesapla girmeye çalışırsa kalıcı ban alır.",p:"Kalıcı ban"},
+  {t:"Reklam yasağı",d:"Başka sunucuların IP'sini ya da linklerini sohbette, tabelada veya oyuncu mesajlarında paylaşmak yasaktır.",p:"Susturma → Ban"}
+ ]},
+ {c:"Sohbet kuralları",i:[
+  {t:"Spam ve büyük harf",d:"Aynı mesajı tekrar tekrar yazmak, gereksiz büyük harf ya da anlamsız karakter yığınları yasaktır.",p:"Uyarı → Susturma"},
+  {t:"Kişisel bilgi",d:"Kendi veya başkasının adres, telefon, fotoğraf gibi özel bilgilerini paylaşmak yasaktır.",p:"Ban"},
+  {t:"Yetkili taklidi",d:"Yetkili gibi davranmak ya da yetkili olduğunu iddia etmek yasaktır.",p:"Susturma → Ban"}
+ ]},
+ {c:"Oyun kuralları",i:[
+  {t:"Hile ve hack",d:"X-ray, kill aura, fly, speed gibi avantaj sağlayan tüm istemci ve modlar yasaktır. Sadece OptiFine, Sodium, minimap gibi görsel/performans modlarına izin verilir.",p:"Kalıcı ban"},
+  {t:"Bug kullanımı",d:"Bir hata bulursan kullanmak yerine yetkililere bildir. Çoğaltma (dupe) ve ekonomiyi bozan açıklar yasaktır. Bildirenler ödüllendirilir.",p:"Ban + eşya silme"},
+  {t:"Makro ve oto-tıklayıcı",d:"Oyuncu yerine oynayan makro, otomatik tıklayıcı ve bot araçları yasaktır.",p:"Ban"},
+  {t:"Lag makineleri",d:"Sunucuyu yavaşlatan devreler, aşırı varlık (entity) birikimi ve lag yapan yapılar yasaktır.",p:"Silme → Ban"}
+ ]},
+ {c:"Grief ve güvenlik",i:[
+  {t:"Grief yasağı",d:"Başkasının yapısını yıkmak, değiştirmek, lav veya TNT ile zarar vermek yasaktır. Korunmayan alanlar da buna dahildir.",p:"Ban + eşyaları geri verme"},
+  {t:"Hırsızlık",d:"Sandıktan, evden veya oyuncudan izinsiz eşya almak yasaktır. Kilitli olmaması izin anlamına gelmez.",p:"Ban + iade"},
+  {t:"Spawn koruması",d:"Spawn çevresinde yapı kurmak, tuzak kurmak veya spawn'da PvP yapmak yasaktır.",p:"Uyarı → Ban"}
+ ]},
+ {c:"Ekonomi ve ticaret",i:[
+  {t:"Dolandırıcılık",d:"Ticarette yalan söylemek, eşya karşılığı alıp vermemek veya sahte vaatlerle kandırmak yasaktır. Anlaşmaları kendi sorumluluğunda yap.",p:"Ban + iade"},
+  {t:"Gerçek para ticareti",d:"Oyun eşyalarını gerçek parayla satmak ya da almak yasaktır. Sadece resmi mağaza kullanılabilir.",p:"Kalıcı ban"}
+ ]}
+];
+
+var PENALTIES=[
+ ["Sohbet kuralı ihlali","Uyarı","1 saat susturma","1 gün susturma"],
+ ["Reklam / spam","Susturma","1 gün ban","7 gün ban"],
+ ["Grief / hırsızlık","3 gün ban + iade","14 gün ban","Kalıcı ban"],
+ ["Bug / lag makinesi","Uyarı + silme","7 gün ban","Kalıcı ban"],
+ ["Hile / hack","Kalıcı ban","—","—"]
+];
+
+// Utanç köşesi: {n:oyuncu, s:sebep, c:ceza, d:tarih}
+var SHAME=[
+ {n:"Herobrine",s:"X-ray kullanımı",c:"Kalıcı ban",d:"11.11.2026"},
+ {n:"Alex",s:"Grief",c:"7 gün ban",d:"10.11.2026"},
+ {n:"Creeper",s:"Reklam yapma",c:"1 gün ban",d:"09.11.2026"}
+];
+/* ============================================================== */
+
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function safeUrl(u){return /^https?:\/\//i.test(u)?u:"#"}
+function head(n,sz){return "https://mc-heads.net/avatar/"+encodeURIComponent(n)+"/"+sz}
+
+// Discord buttons
+if(DISCORD){["dc1","dc2"].forEach(function(id){var a=document.getElementById(id);a.href=safeUrl(DISCORD);a.hidden=false})}
+
+// Ranks
+document.getElementById("ranks").innerHTML=RANKS.map(function(r){
+ var buy=STORE?'<a class="btn" href="'+esc(safeUrl(STORE))+'" target="_blank" rel="noopener">SATIN AL</a>':'';
+ return '<div class="card rank" style="border-top-color:'+esc(r.rk)+'"><h3 class="px" style="color:'+esc(r.rk)+'">'+esc(r.n)+'</h3>'+
+ '<div class="price">'+esc(r.pr)+'</div><ul>'+r.perks.map(function(p){return "<li>"+esc(p)+"</li>"}).join("")+'</ul>'+buy+'</div>'}).join("");
+document.getElementById("soon").hidden=!!STORE;
+
+// Votes
+if(VOTES.length){
+ document.getElementById("oy").hidden=false;document.getElementById("nvote").hidden=false;
+ document.getElementById("votes").innerHTML=VOTES.map(function(v){
+  return '<a class="btn" href="'+esc(safeUrl(v.u))+'" target="_blank" rel="noopener">'+esc(v.n)+'</a>'}).join("");
+}
+
+// Team
+document.getElementById("team").innerHTML=TEAM.map(function(m){
+ return '<div class="card member"><img src="'+head(m.n,84)+'" alt="'+esc(m.n)+'" loading="lazy">'+
+ '<div><b>'+esc(m.n)+'</b></div><span class="role r-'+esc(m.r)+'">'+esc(m.t)+'</span><p>'+esc(m.d)+'</p></div>'}).join("");
+
+// Rules
+document.getElementById("rules").innerHTML=RULES.map(function(g){
+ return '<div class="cat"><h3 class="px">'+esc(g.c)+'</h3>'+g.i.map(function(r){
+  return '<details><summary>'+esc(r.t)+'</summary><div class="d">'+esc(r.d)+'<br><span class="pen">Ceza: '+esc(r.p)+'</span></div></details>'}).join("")+'</div>'}).join("");
+
+// Penalties
+document.getElementById("pen").innerHTML=PENALTIES.map(function(r){
+ return "<tr>"+r.map(function(c,i){return i?"<td>"+esc(c)+"</td>":"<td><b>"+esc(c)+"</b></td>"}).join("")+"</tr>"}).join("");
+
+// Wall of shame
+var body=document.getElementById("shame"),none=document.getElementById("none");
+function drawShame(f){
+ var list=SHAME.filter(function(p){return p.n.toLowerCase().indexOf(f)>-1});
+ body.innerHTML=list.map(function(p){
+  return '<tr><td><div class="who"><img src="'+head(p.n,36)+'" alt="">'+esc(p.n)+'</div></td><td>'+esc(p.s)+'</td><td><span class="tag">'+esc(p.c)+'</span></td><td>'+esc(p.d)+'</td></tr>'}).join("");
+ none.hidden=list.length>0;
+}
+drawShame("");
+document.getElementById("q").addEventListener("input",function(){drawShame(this.value.trim().toLowerCase())});
+
+// Copy IP
+var btn=document.getElementById("copy");
+btn.addEventListener("click",function(){
+ function ok(){btn.textContent="KOPYALANDI!";setTimeout(function(){btn.textContent="IP'Yİ KOPYALA"},1800)}
+ if(navigator.clipboard){navigator.clipboard.writeText(IP).then(ok)}else{ok()}
+});
+
+// Live status
+var dot=document.getElementById("dot"),txt=document.getElementById("stxt");
+fetch("https://api.mcsrvstat.us/3/"+IP).then(function(r){return r.json()}).then(function(d){
+ if(d.online){dot.className="dot on";txt.textContent="Çevrimiçi"+(d.players?" · "+d.players.online+" / "+d.players.max+" oyuncu":"")}
+ else{dot.className="dot off";txt.textContent="Sunucu şu an kapalı"}
+}).catch(function(){txt.textContent="Durum alınamadı"});
 </script>
 </body>
 </html>
